@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     get "users/:id", to: "users#show", as: :user
     patch "users/:id", to: "users#update"
     post "users/:user_id/logs", to: "logs#create", as: :user_logs
-    get "logs", to: "logs#index"
+    get "audit", to: "audit#index"
     get "projects", to: "projects#index"
     get "shop", to: "shop#index"
     post "shop", to: "shop#create"
