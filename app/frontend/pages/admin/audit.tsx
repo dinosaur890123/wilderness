@@ -16,6 +16,10 @@ type AuditEvent = {
 const ACTION_LABELS: Record<string, string> = {
     "user.admin_granted": "Granted admin access",
 	"user.admin_revoked": "Revoked admin access",
+	"logs.granted": "Granted logs",
+	"logs.removed": "Removed logs",
+	"logs.awarded": "Awarded logs for a ship",
+	"project.created": "Created a project",
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -89,5 +93,21 @@ export default function AdminAudit({
 				</AdminTable>
 			</div>
 		</AdminShell>
-	)
+	);
+}
+
+function Details({metadata}: {metadata: Record<string, string | number | boolean | null>}) {
+	const entries = Object.entries(metadata);
+	if (entries.length === 0) return <span className="text-foreground/30">—</span>;
+
+	return (
+		<div className="flex flex-col gap-0.5 text-sm">
+			{entries.map(([key, value]) => (
+				<div key={key} className="flex gap-2">
+					<span className="text-foreground/40">{key.replace("_", " ")}</span>
+					<span className="text-foreground/80">{String(value)}</span>
+				</div>
+			))}
+		</div>
+	);
 }
