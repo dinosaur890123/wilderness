@@ -32,6 +32,7 @@ class HackatimeConnectionsController < ApplicationController
 
     def destroy
         Hackatime::Connection.new(current_user).revoke!
+        AuditEvent.record!("hackatime.disconnected", actor: current_user, subject: current_user)
         redirect_to camp_path, notice: "hackatime disconnected"
     end
     private
