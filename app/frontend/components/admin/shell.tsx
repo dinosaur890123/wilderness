@@ -6,6 +6,7 @@ import {
 	LayoutDashboard,
 	type LucideIcon,
 	Package,
+	ScrollText,
 	Shield,
 	Tent,
 	Users,
@@ -19,7 +20,7 @@ const TABS: { href: string; label: string; icon: LucideIcon }[] = [
 	{ href: "/admin/users", label: "Users", icon: Users },
 	{ href: "/admin/projects", label: "Projects", icon: Tent },
 	{ href: "/admin/shop", label: "Shop", icon: Package },
-	{ href: "/admin/logs", label: "Audit", icon: ScrollText },
+	{ href: "/admin/audit", label: "Audit", icon: ScrollText },
 	{ href: "/admin/flags", label: "Feature flags", icon: Flag },
 ];
 
