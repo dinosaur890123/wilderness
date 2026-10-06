@@ -13,6 +13,9 @@ class AuditEvent < ApplicationRecord
 
   ACTIONS = CATEGORIES.values.flatten.freeze
 
+  scope :recent, -> { order(created_at: :desc) }
+  scope :in_category, ->(category) { where(action: CATEGORIES.fetch(category, [])) }
+
   def self.record!(action, actor: nil, subject: nil, target_user: nil, **metadata)
     create!(
       action: action,
