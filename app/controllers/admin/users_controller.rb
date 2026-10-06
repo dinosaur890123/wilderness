@@ -31,18 +31,24 @@ module Admin
       case params[:field]
       when "admin"
         if user == current_user
-          return redirect_to admin_users_path(q: params[:q].presence),
-            notice: "you can't demote yourself."
+          return redirect_back fallback_location: admin_users_path, notice: "You cannot remove your own admin access."
         end
         user.update!(admin: !user.admin?)
+        AuditEvent.record!(user.admin? ? "user.admin_granted" : "user.admin_revoked", actor: current_user, subject: user)
+        notice = user.admin? ? "#{user.display_name} is now an admin." : "#{user.display_name} is no longer an admin."
       when "camp_access"
         if camp_actors.include?(user.flipper_id)
           Flipper.disable_actor(:camp, user)
+          AuditEvent.record!("user.camp_revoked", actor: current_user, subject: user)
+          notice = "Revoked the invite for #{user.display_name}."
         else
           Flipper.enable_actor(:camp, user)
+          AuditEvent.record!("user.camp_invited", actor: current_user, subject: user)
+          notice = "Invited #{user.display_name} to wilderness."
         end
       end
-      redirect_back fallback_location: admin_users_path
+
+      redirect_back fallback_location: admin_users_path, notice: notice
     end
 
     private

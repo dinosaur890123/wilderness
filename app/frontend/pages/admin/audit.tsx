@@ -20,6 +20,16 @@ const ACTION_LABELS: Record<string, string> = {
 	"logs.removed": "Removed logs",
 	"logs.awarded": "Awarded logs for a ship",
 	"project.created": "Created a project",
+	"project.updated": "Updated a project",
+	"project.shipped": "Shipped a project",
+	"project.approved": "Approved a ship",
+	"shop_item.created": "Added a shop item",
+	"shop_item.updated": "Updated a shop item",
+	"shop_item.deleted": "Deleted a shop item",
+	"flag.enabled": "Enabled a feature flag",
+	"flag.disabled": "Disabled a feature flag",
+	"hackatime.connected": "Connected Hackatime",
+	"hackatime.disconnected": "Disconnected Hackatime",
 };
 
 const CATEGORY_LABELS: Record<string, string> = {

@@ -20,6 +20,7 @@ module Admin
     item = ShopItem.new(item_params)
     if item.save
       sync_prices(item)
+      AuditEvent.record!("shop_item.created", actor: current_user, subject: item, title: item.title)
       redirect_to admin_shop_path, notice: "#{item.title} is now available for all users"
     else
       redirect_to admin_shop_path, inertia: { errors: item.errors }
@@ -38,6 +39,7 @@ module Admin
   def destroy
     title = @item.title
     @item.destroy!
+    AuditEvent.record!("shop_item.deleted", actor: current_user, title: title)
     redirect_to admin_shop_path, notice: "#{title} deleted"
   end
 

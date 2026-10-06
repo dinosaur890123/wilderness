@@ -23,6 +23,8 @@ class ShipSubmission < ApplicationRecord
             project.update!(paid_seconds: submitted_seconds, status: "approved")
 
             update!(status: "approved", reviewer: reviewer, review_notes: notes, reviewed_at: Time.current)
+            AuditEvent.record!("project.approved", actor: reviewer, subject: project, name: project.name)
+            AuditEvent.record!("logs.awarded", actor: reviewer, subject: project, target_user: project.user, amount: awarded)
         end
         true
     rescue ActiveRecord::RecordNotUnique

@@ -26,6 +26,7 @@ class HackatimeConnectionsController < ApplicationController
             code: params[:code],
             redirect_uri: hackatime_callback_url
         )
+        AuditEvent.record!("hackatime.connected", actor: current_user, subject: current_user)
         redirect_to camp_path, notice: "hackatime connected successfullly"
     end
 
