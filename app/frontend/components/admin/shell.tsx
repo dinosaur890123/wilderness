@@ -6,6 +6,7 @@ import {
 	LayoutDashboard,
 	type LucideIcon,
 	Package,
+	ScrollText
 	Shield,
 	Tent,
 	Users,
